@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather Info</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-blue-100">
+  <div class="container mx-auto mt-10">
+    <h1 class="text-center text-3xl font-bold mb-4">Weather Information</h1>
+    <input type="text" id="location" placeholder="Enter city name" class="p-2 border rounded w-full mb-4">
+    <button onclick="fetchWeather()" class="bg-blue-500 text-white py-2 px-4 rounded">Get Weather</button>
+    
+    <div id="weatherDisplay" class="mt-6 p-4 bg-white rounded shadow-md hidden"></div>
+    <div class="flex justify-between mt-4">
+      <button onclick="paginate('prev')" class="bg-gray-300 py-2 px-4 rounded">Previous</button>
+      <button onclick="paginate('next')" class="bg-gray-300 py-2 px-4 rounded">Next</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
