@@ -1,4 +1,4 @@
-const apiKey = 'f04ad0b2958e4a33ef0239479073e6a9';
+const apiKey = '52d3ea54fb31055db9d610d6c64b8471';
 let currentPage = 0;
 const cities = ["New York", "London", "Tokyo", "Paris", "Sydney", "Philippines","China","Switzerland","Canada","Vietnam","South korea", "Thailand"];
 
