@@ -1,4 +1,4 @@
-const apiKey = 'http://api.weatherstack.com/current?access_key=YOUR_API_KEY&query=New York';
+const apiKey = 'f04ad0b2958e4a33ef0239479073e6a9';
 let currentPage = 1;
 
 function fetchWeather() {
