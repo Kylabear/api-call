@@ -1,7 +1,8 @@
 const apiKey = 'f04ad0b2958e4a33ef0239479073e6a9';
-let currentPage = 1;
+let currentPage = 0;
+const cities = ["New York", "London", "Tokyo", "Paris", "Sydney", "Philippines","China","Switzerland","Canada","Vietnam","South korea", "Thailand"];
 
-function fetchWeather() {
+function fetchWeather(location = cities[currentPage]) {
   const location = document.getElementById('location').value;
   const url = `http://api.weatherstack.com/current?access_key=${apiKey}&query=${location}`;
 
@@ -32,7 +33,11 @@ function displayWeather(data) {
   }
   
   function paginate(direction) {
-    currentPage += direction === 'next' ? 1 : -1;
-    fetchWeather();
-  }
+    if (direction === 'next') {
+        currentPage = (currentPage + 1) % cities.length;
+      } else if (direction === 'prev') {
+        currentPage = (currentPage - 1 + cities.length) % cities.length;
+      }
+      fetchWeather(cities[currentPage]);
+    }
   
