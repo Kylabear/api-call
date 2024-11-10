@@ -21,17 +21,18 @@ function fetchWeather() {
 }
 
 function displayWeather(data) {
-  const weatherDisplay = document.getElementById('weatherDisplay');
-  weatherDisplay.innerHTML = `
-    <h2 class="text-xl font-bold">${data.location.name}, ${data.location.country}</h2>
-    <p>Temperature: ${data.current.temperature}°C</p>
-    <p>Weather: ${data.current.weather_descriptions[0]}</p>
-    <p>Wind Speed: ${data.current.wind_speed} km/h</p>
-  `;
-  weatherDisplay.classList.remove('hidden');
-}
-
-function paginate(direction) {
-  currentPage += direction === 'next' ? 1 : -1;
-  fetchWeather();
-}
+    const weatherDisplay = document.getElementById('weatherDisplay');
+    weatherDisplay.innerHTML = `
+      <h2 class="text-xl font-bold">${data.location.name}, ${data.location.country}</h2>
+      <p>Temperature: ${data.current.temperature}°C</p>
+      <p>Weather: ${data.current.weather_descriptions[0]}</p>
+      <p>Wind Speed: ${data.current.wind_speed} km/h</p>
+    `;
+    weatherDisplay.classList.remove('hidden');
+  }
+  
+  function paginate(direction) {
+    currentPage += direction === 'next' ? 1 : -1;
+    fetchWeather();
+  }
+  
