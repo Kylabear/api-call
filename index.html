@@ -1,43 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Weather Info</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Info</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-blue-100 min-h-screen flex items-center justify-center">
-  <div class="container max-w-md mx-auto px-4 py-8 bg-white rounded-lg shadow-lg">
-    <h1 class="text-center text-3xl font-bold mb-6 text-gray-700">Weather Information</h1>
-    
-    <!-- Responsive Input Field -->
-    <div class="mb-4">
-      <input type="text" id="location" placeholder="Enter city name" class="w-full p-3 border rounded-md focus:outline-none focus:ring focus:border-blue-300">
-    </div>
-    
-    <!-- Responsive Button -->
-    <div class="text-center">
-      <button onclick="fetchWeather()" class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300">
-        Get Weather
-      </button>
-    </div>
-    
-    <!-- Weather Display Section -->
-    <div id="weatherDisplay" class="mt-6 p-4 bg-blue-50 rounded-md shadow hidden">
-      <!-- Weather data will be displayed here -->
-    </div>
+    <div class="container max-w-md mx-auto px-4 py-8 bg-white rounded-lg shadow-lg">
+        <h1 class="text-center text-3xl font-bold mb-6 text-gray-700">Weather Information</h1>
 
-    <!-- Pagination Buttons (Responsive) -->
-    <div class="flex justify-between mt-4">
-      <button onclick="paginate('prev')" class="w-1/3 bg-gray-300 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-400 transition duration-300">
-        Previous
-      </button>
-      <button onclick="paginate('next')" class="w-1/3 bg-gray-300 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-400 transition duration-300">
-        Next
-      </button>
-    </div>
-  </div>
+    
+        <div class="mb-4">
+            <input type="text" id="location" placeholder="Enter city name" class="w-full p-3 border rounded-md focus:outline-none focus:ring focus:border-blue-300">
+        </div>
 
-  <script src="app.js"></script>
+        <div class="text-center">
+            <button id="fetchWeather" class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300">
+                Get Weather
+            </button>
+        </div>
+
+        <!-- Weather Display Section -->
+        <div id="weatherDisplay" class="mt-6 p-4 bg-blue-50 rounded-md shadow hidden">
+            <!-- Weather data will be displayed here -->
+        </div>
+
+        <!-- Pagination Buttons (Responsive) -->
+        <div class="flex justify-between mt-4">
+            <button id="prev" onclick="paginate('prev')" class="w-1/3 bg-gray-300 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-400 transition duration-300" disabled>
+                Previous
+            </button>
+            <button id="next" onclick="paginate('next')" class="w-1/3 bg-gray-300 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-400 transition duration-300" disabled>
+                Next
+            </button>
+        </div>
+    </div>
+    <script src="app.js"></script>
 </body>
 </html>
