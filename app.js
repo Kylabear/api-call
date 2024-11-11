@@ -1,55 +1,54 @@
 const apiKey = 'https://weatherstack.com/dashboard';
-let currentPage = 0;
-const cities = ["New York", "London", "Tokyo", "Paris", "Sydney", "Philippines","China","Switzerland","Canada","Vietnam","South korea", "Thailand"];
+const weatherDisplay = document.getElementById('weatherDisplay');
+const fetchWeatherButton = document.getElementById('fetchWeather');
+const locationInput = document.getElementById('location');
+const prevButton = document.getElementById('prev');
+const nextButton = document.getElementById('next');
 
-function fetchWeather(location = cities[currentPage]) {
-  const userLocation = document.getElementById('location').value.trim();
-  const queryLocation = location || (userLocation ? userLocation : cities[currentPage]);    
-  const url = `http://api.weatherstack.com/current?access_key=${apiKey}&query=${location}`;
-  weatherDisplay.innerHTML = 'Loading...';
-  weatherDisplay.classList.remove('hidden');
+let currentPage = 1;
+let totalPages = 0;
 
 
-  fetch(url)
-    
-    .then(response => {
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-      return response.json();
-    })
-    .then(data => {
-      if (data.error) {
-        alert(`Error: ${data.error.info}`);
-        return;
+fetchWeatherButton.addEventListener('click', () => {
+  const location = locationInput.value;
+  if (location) {
+      fetchWeather(location);
+  } else {
+      showError('Please enter a location.');
+  }
+});
+
+async function fetchWeather(location) {
+  try {
+      const response = await fetch(`http://api.weatherstack.com/current?access_key=${apiKey}&query=${location}`);
+      
+      if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
       }
+
+      const data = await response.json();
+      
+      if (data.success === false) {
+          showError(data.error.info);
+          return;
+      }
+
       displayWeather(data);
-    })
-    .catch(error => console.error('Error fetching weather data:', error));
+  } catch (error) {
+      showError('Error fetching data: ' + error.message);
+  }
 }
 
 function displayWeather(data) {
-    const weatherDisplay = document.getElementById('weatherDisplay');
-    weatherDisplay.innerHTML = `
-      <h2 class="text-xl font-bold">${data.location.name}, ${data.location.country}</h2>
-      <p>Temperature: ${data.current.temperature}°C</p>
-      <p>Weather: ${data.current.weather_descriptions[0]}</p>
-      <p>Wind Speed: ${data.current.wind_speed} km/h</p>
-    `;
-    weatherDisplay.classList.remove('hidden');
-  }catch (error) {
-    // Handle errors
-    weatherDisplay.innerHTML = `
-      <p class="text-red-500">${error.message}</p>
-    `;
-  }
-  
-  function paginate(direction) {
-    document.getElementById('location').value = '';
-    if (direction === 'next') {
-        currentPage = (currentPage + 1) % cities.length;
-      } else if (direction === 'prev') {
-        currentPage = (currentPage - 1 + cities.length) % cities.length;
-      }
-      fetchWeather();
-      console.log(`Pagination: ${direction}`);
-    }
-  
+  const { location, current } = data;
+  weatherDisplay.innerHTML = `
+      <h2>Weather in ${location.name}, ${location.country}</h2>
+      <p>Temperature: ${current.temperature}°C</p>
+      <p>Weather: ${current.weather_descriptions[0]}</p>
+      <p>Wind Speed: ${current.wind_speed} km/h</p>
+  `;
+}
+
+function showError(message) {
+  weatherDisplay.innerHTML = `<p class="error">${message}</p>`;
+}
