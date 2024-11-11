@@ -7,6 +7,8 @@ const nextButton = document.getElementById('next');
 
 let currentPage = 1;
 let totalPages = 0;
+let weatherData = null;
+let currentLocation = '';
 
 fetchWeatherButton.addEventListener('click', () => {
     const location = locationInput.value;
@@ -47,21 +49,34 @@ function displayWeather(data) {
         <p>Weather: ${current.weather_descriptions[0]}</p>
         <p>Wind Speed: ${current.wind_speed} km/h</p>
     `;
+    // Enable pagination buttons if applicable 
+    prevButton.disabled = currentPage <= 1;
+    nextButton.disabled = currentPage >= totalPages; // Adjust this based on your pagination logic
 }
 
+// Error handling function
 function showError(message) {
     weatherDisplay.classList.remove('hidden'); // Show the error display
     weatherDisplay.innerHTML = `<p class="text-red-500">${message}</p>`;
 }
 
+// Pagination logic (stubbed for demonstration)
 function paginate(direction) {
     // Implement pagination logic here if applicable
     if (direction === 'prev') {
-        // Decrease current page
-        currentPage--;
+        if (currentPage > 1) {
+            currentPage--;
+            fetchWeather(currentLocation); // Refetch the weather data for the same location
+        }
     } else if (direction === 'next') {
-        // Increase current page
         currentPage++;
+        fetchWeather(currentLocation); // Refetch the weather data for the same location
     }
-    // Fetch new data based on the current page if applicable
+    
+    // Update button states
+    prevButton.disabled = currentPage <= 1;
+    // Update nextButton.disabled based on your business logic
 }
+
+prevButton.addEventListener('click', () => paginate('prev'));
+nextButton.addEventListener('click', () => paginate('next'));
