@@ -1,4 +1,4 @@
-const apiKey = '52d3ea54fb31055db9d610d6c64b8471';
+const apiKey = 'https://weatherstack.com/dashboard';
 let currentPage = 0;
 const cities = ["New York", "London", "Tokyo", "Paris", "Sydney", "Philippines","China","Switzerland","Canada","Vietnam","South korea", "Thailand"];
 
@@ -6,8 +6,12 @@ function fetchWeather(location = cities[currentPage]) {
   const userLocation = document.getElementById('location').value.trim();
   const queryLocation = location || (userLocation ? userLocation : cities[currentPage]);    
   const url = `http://api.weatherstack.com/current?access_key=${apiKey}&query=${location}`;
+  weatherDisplay.innerHTML = 'Loading...';
+  weatherDisplay.classList.remove('hidden');
+
 
   fetch(url)
+    
     .then(response => {
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
       return response.json();
@@ -31,6 +35,11 @@ function displayWeather(data) {
       <p>Wind Speed: ${data.current.wind_speed} km/h</p>
     `;
     weatherDisplay.classList.remove('hidden');
+  }catch (error) {
+    // Handle errors
+    weatherDisplay.innerHTML = `
+      <p class="text-red-500">${error.message}</p>
+    `;
   }
   
   function paginate(direction) {
@@ -41,5 +50,6 @@ function displayWeather(data) {
         currentPage = (currentPage - 1 + cities.length) % cities.length;
       }
       fetchWeather();
+      console.log(`Pagination: ${direction}`);
     }
   
